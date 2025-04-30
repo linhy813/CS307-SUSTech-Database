@@ -1,0 +1,55 @@
+-- 1. 不同性别的销售员分别有多少个
+select distinct gender, count(distinct salesman_name)
+from salesman
+group by gender;
+
+-- 2. 每一个supply center中有多少公司
+select supply_center, count(distinct company_name)
+from company
+         join supply_centers on company.supply_center_id = supply_centers.supply_center_id
+group by supply_center
+order by supply_center ASC;
+
+-- 3. 每一个supply center中有多少销售员
+select s.supply_center, count(distinct salesman_id)
+from supply_centers s
+         join salesman m on s.supply_center_id = m.supply_center_id
+group by s.supply_center
+order by supply_center ASC;
+
+-- 4. 年龄在某个上界或下界区间的销售员有多少个
+select count(distinct salesman)
+from salesman
+where age > 42 and age < 45;
+
+-- 5. 每一个supply center中有多少国家
+select s.supply_center, count(distinct country)
+from company c
+         join supply_centers s on c.supply_center_id = s.supply_center_id
+group by s.supply_center
+order by supply_center ASC;
+
+-- 6. 根据某一个国家名称，列出其所有的公司名称，及其公司所属行业
+select distinct country, company_name, industry
+from company
+where country = 'Italy'
+order by country, company_name;
+
+-- 7. 根据某一个产品编码，列出其所有的产品型号、及对应的单价
+select distinct p.product_code, m.product_model, m.unit_price
+from product p
+         join product_model m on p.product_id = m.product_id
+where product_code = 'B56K283'
+order by p.product_code, m.product_model, m.unit_price;
+
+-- 8. 根据某一个合同编码，列出合同中所有订单内容，
+每个订单包含（产品型号、购买数量、销售员名称、实际到达日期）
+select distinct c.contract_number, p.product_code, m.product_model, o.quantity, s.salesman_name, o.lodgement_date
+from contracts c
+         join orders o on c.contract_id = o.contract_id
+         join salesman s on o.salesman_id = s.salesman_id
+         join product_model m on o.model_id = m.model_id
+         join product p on m.product_id = p.product_id
+where contract_number = 'CSE0000267'
+order by c.contract_number, m.product_model, o.lodgement_date, s.salesman_name, o.lodgement_date;
+
