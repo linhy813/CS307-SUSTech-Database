@@ -1,0 +1,11 @@
+因为我们报告里的脚本描述篇幅太长了，我又没有每次优化都新建项目，所以不是很好直接拆分。
+
+这里写一下每一个脚本对应的版本
+
+LoadInStages 原始
+AddPrimaryLater 第一次优化
+WithoutPSTMT 第二次优化
+ExecuteToCopy 第三次优化
+
+DisableTrigger 禁用触发器
+LoadInStages 原始的也作对比
